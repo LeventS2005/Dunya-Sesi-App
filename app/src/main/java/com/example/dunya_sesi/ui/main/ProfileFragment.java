@@ -21,7 +21,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.dunya_sesi.ProfileSettingsActivity;
-import com.example.dunya_sesi.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -30,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import com.example.dunya_sesi.R;
 import static android.content.ContentValues.TAG;
 import static android.os.FileUtils.copy;
 
@@ -74,8 +74,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void navigateToSettingsActivity() {
+        // TODO(homework) using intent to navigate to settings activity
         Intent i = new Intent(this.getActivity(), ProfileSettingsActivity.class);
         startActivity(i);
+
+
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

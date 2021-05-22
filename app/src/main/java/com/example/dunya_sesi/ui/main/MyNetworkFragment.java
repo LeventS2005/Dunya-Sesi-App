@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dunya_sesi.R;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.example.dunya_sesi.R;
 
 /**
  * A placeholder fragment containing a simple view.

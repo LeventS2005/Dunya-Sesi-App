@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dunya Sesi</string>
+    <string name="app_name">Wordly Noises</string>
     <string name="register_page_title">Register</string>
     <string name="login_page_title">Login</string>
     <string name="login_email_placeholder">Enter Account Email</string>
@@ -31,4 +31,5 @@
     <string name="my_network_title">My Network</string>
     <string name="network_search">Search network ...</string>
     <string name="chat_search">Search chats ...</string>
+    <string name="open_chat_button">open chat</string>
 </resources>
