@@ -21,25 +21,9 @@
         android:id="@+id/searchResultList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="9"
         android:orientation="vertical" />
 
-
-    <TextView
-        android:id="@+id/userNetworkTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:autoSizeTextType="uniform"
-        android:text="@string/my_network_title"
-        android:layout_marginLeft="10dp"/>
-
-    <LinearLayout
-        android:id="@+id/networkList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical" />
 
     <Button
         android:id="@+id/newRequestsButton"
