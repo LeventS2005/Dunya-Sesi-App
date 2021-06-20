@@ -20,13 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:textColor="#e4000f"
-        android:text="mmnete"
-        android:layout_marginLeft="10dp"/>
+        android:textColor="#e4000f"/>
 
     <Button
         android:id="@+id/updateBannerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/update_banner_button"
@@ -40,25 +38,22 @@
         android:layout_gravity="end"/>
 
     <EditText
-    android:id="@+id/userName"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:text="mmnete"
-    android:layout_marginLeft="10dp"/>
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Loading your username"/>
 
     <TextView
         android:id="@+id/userNameUpdateError"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:textColor="#e4000f"
-        android:text="mmnete"
-        android:layout_marginLeft="10dp"/>
+        android:textColor="#e4000f"/>
 
     <Button
         android:id="@+id/updateUsernameButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/update_username_button"
@@ -75,22 +70,19 @@
         android:id="@+id/userCaption"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="mmnete"
-        android:layout_marginLeft="10dp"/>
+        android:layout_weight="4"
+        android:text="Loading your caption ..."/>
 
     <TextView
         android:id="@+id/userCaptionUpdateError"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:textColor="#e4000f"
-        android:text="mmnete"
-        android:layout_marginLeft="10dp"/>
+        android:textColor="#e4000f"/>
 
     <Button
         android:id="@+id/updateCaptionButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/update_caption_button"
