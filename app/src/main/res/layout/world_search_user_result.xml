@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:padding="5dp"
+    android:background="@drawable/my_world_search_result_background">
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="0dp"
+        android:layout_weight="3"/>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="2dp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:text="Example_User_Name"
+        android:textColor="#ffff"
+        app:autoSizeTextType="uniform"/>
+
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Example caption"
+        android:textColor="#ffff"/>
+
+    <Button
+        android:id="@+id/viewProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="View Profile"
+        android:background="@color/cardview_light_background"/>
+
+</LinearLayout>

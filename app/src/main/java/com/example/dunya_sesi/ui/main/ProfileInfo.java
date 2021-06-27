@@ -11,8 +11,8 @@ import java.util.Map;
  * */
 public class ProfileInfo {
 
-    String username;
-    String caption;
+    public String username;
+    public String caption;
     String profileImageUrl;
 
     public ProfileInfo (String username, String caption, String profileImageUrl) {

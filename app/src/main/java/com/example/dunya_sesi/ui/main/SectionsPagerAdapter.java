@@ -8,13 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.dunya_sesi.R;
+
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final String[] TAB_TITLES = new String[]{"Chat", "My Network","MY WORLD", "Profile"};
+    private static final String[] TAB_TITLES = new String[]{"Chat", "My World", "Profile"};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -27,12 +29,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         if (position == 0) {
             return ChatFragment.newInstance(0);
-        } else if (position == 1) {
-            return MyNetworkFragment.newInstance(1);
-        } else if (position == 2) {
-            return WorldNetworkFragment.newInstance(2);
+        }else if (position == 1) {
+            return WorldNetworkFragment.newInstance(1);
         } else {
-            return ProfileFragment.newInstance(3);
+            return ProfileFragment.newInstance(2);
         }
     }
 
@@ -46,6 +46,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 4;
+        return 3;
     }
 }

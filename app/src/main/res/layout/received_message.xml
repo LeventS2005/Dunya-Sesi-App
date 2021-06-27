@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/messageId"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -28,14 +34,14 @@
                 android:layout_weight="1"
                 android:text="Sender"
                 android:textColor="#000000"
-                android:textSize="14dp" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/messageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
-                android:textColor="#FFFFFF"
+                android:textColor="#000"
                 android:text="Example message..."/>
 
         </LinearLayout>

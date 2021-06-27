@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
+<TextView
+    android:id="@+id/messageId"
+    android:layout_height="0dp"
+    tools:ignore="Suspicious0dp"
+    android:layout_width="0dp"></TextView>
 
 
     <RelativeLayout
@@ -50,8 +56,9 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/deleteMessageButtonContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal">
 
         <Button
@@ -67,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Delete Message"
-            android:background="#FF0000"
-            android:textColor="#ffff"/>
+            android:background="#d3d3d3"
+            android:textColor="#FF0000"/>
 
     </LinearLayout>
 

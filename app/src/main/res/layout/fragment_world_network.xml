@@ -8,17 +8,16 @@
     android:orientation="vertical"
     tools:context=".ui.main.WorldNetworkFragment">
 
-    <TextView
-        android:id="@+id/userNetworkTitle"
+    <EditText
+        android:id="@+id/searchWorldUserEditText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:autoSizeTextType="uniform"
-        android:text="@string/world_network_title"
-        android:layout_marginLeft="10dp"/>
+        android:hint="@string/network_search"
+        android:textSize="20dp"/>
 
-    <LinearLayout
-        android:id="@+id/networkList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/worldNetworkList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"

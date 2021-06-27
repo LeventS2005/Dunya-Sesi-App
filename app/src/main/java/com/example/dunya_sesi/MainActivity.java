@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+                @Override
             public void onClick(View view) {
                 navigateToRegisterPage();
             }
@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
             errorTextView.setText("Please enter a valid email!");
             return;
         }
+        // check internet connection
+        if(!util.isNetworkAvailable((ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            errorTextView.setText("Please connect to the internet!");
+            return;
+        }
 
         loginButton.setEnabled(false);
 
@@ -112,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 if(response.equals("USER-FOUND")){
-                    editor.putString("USERNAME", email);
+                    editor.putString("USERNAME", "Connect to internet to load username");
+                    editor.putString("CAPTION", util.default_caption_new_user);
+                    editor.putString("EMAIL", email);
                     editor.commit();
                     final Intent i = new Intent(getApplicationContext(), Explore.class);
                     startActivity(i);

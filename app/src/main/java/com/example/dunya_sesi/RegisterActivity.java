@@ -48,10 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         mySharedPref = getSharedPreferences(mySharedPrefFileName,  Context.MODE_PRIVATE);
 
-
-
-
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigateToForgotPasswordPage();
+               navigateToForgotPasswordPage();
             }
         });
 
@@ -96,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void registerUser(final String email, String username, String password, String confirmPassword, final SharedPreferences.Editor editor) {
+    private void registerUser(final String email, final String username, String password, String confirmPassword, final SharedPreferences.Editor editor) {
         registerErrorTextView.setText("");
         final String response = "";
         if (email.length() < 5) {
@@ -138,7 +133,9 @@ public class RegisterActivity extends AppCompatActivity {
                     registerErrorTextView.setText(
                             "An Account with this email exists. Please use a different email.");
                 } else if (response.equals("CREATED")) {
-                    editor.putString("USERNAME", email);
+                    editor.putString("USERNAME", username);
+                    editor.putString("CAPTION", util.default_caption_new_user);
+                    editor.putString("EMAIL", email);
                     editor.commit();
                     final Intent i = new Intent(getApplicationContext(), Explore.class);
                     startActivity(i);

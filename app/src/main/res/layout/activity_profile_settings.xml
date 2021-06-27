@@ -13,69 +13,55 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/profile_settings_title"
-        android:textSize="30dp"
-        android:layout_marginLeft="10dp"/>
+        android:textSize="30dp"/>
 
     <EditText
-        android:id="@+id/userEmail"
+        android:id="@+id/profileUserEmail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="mmnete"
-        android:textSize="30dp"
-        android:layout_marginLeft="10dp"/>
+        android:hint="your email"
+        app:autoSizeTextType="uniform"/>
 
-    <EditText
-        android:id="@+id/userConfirmEmail"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="mmnete"
-        android:textSize="30dp"
-        android:layout_marginLeft="10dp"/>
 
     <TextView
-        android:id="@+id/userEmailUpdateError"
+        android:id="@+id/profileUserEmailUpdateError"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:textColor="#e4000f"
-        android:text="mmnete"
-        android:layout_marginLeft="10dp"/>
+        android:textColor="#e4000f"/>
 
     <Button
-        android:id="@+id/updateEmailButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/updateProfileUserEmailButton"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/update_email_button"
         android:background="@color/colorPrimary"
         android:textColor="#ffff"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_gravity="end"
         android:textSize="20dp"/>
 
     <EditText
-        android:id="@+id/userNewPassword"
+        android:id="@+id/profileUserNewPassword"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="mmnete"
-        android:textSize="30dp"
-        android:layout_marginLeft="10dp"/>
+        android:hint="your password"
+        android:inputType="textPassword"
+        app:autoSizeTextType="uniform"/>
 
     <EditText
-        android:id="@+id/userConfirmNewPassword"
+        android:id="@+id/profileUserConfirmNewPassword"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="mmnete"
-        android:textSize="30dp"
-        android:layout_marginLeft="10dp"/>
+        android:hint="your password confirmation"
+        android:inputType="textPassword"
+        app:autoSizeTextType="uniform"/>
 
     <TextView
         android:id="@+id/userPasswordUpdateError"
@@ -83,20 +69,17 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:textColor="#e4000f"
-        android:text="mmnete"
         android:layout_marginLeft="10dp"/>
 
     <Button
-        android:id="@+id/updatePasswordButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/profileUpdatePasswordButton"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/update_password_button"
         android:background="@color/colorPrimary"
         android:textColor="#ffff"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_gravity="end"
