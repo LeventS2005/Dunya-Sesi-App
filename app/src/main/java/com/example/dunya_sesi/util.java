@@ -47,7 +47,9 @@ public class util {
     private static String updateCaptionUrlBackEnd = "https://mohamedmnete.com/update_caption.php";
     private static String updateEmailUrlBackEnd = "https://mohamedmnete.com/update_email.php";
     private static String updatePasswordUrlBackEnd = "https://mohamedmnete.com/update_password.php";
-
+    private static String friendshipStatusUrlBackEnd = "https://mohamedmnete.com/get_friendship_status.php";
+    private static String sentFriendRequestUrlBackEnd = "https://mohamedmnete.com/did_i_send_request.php";
+    private static String reciviedFriendRequestUrlBackEnd = "https://mohamedmnete.com/did_i_recieve_request.php";
 
     public static String default_caption_new_user = "Hello World, I am live right now! Yay!";
 
@@ -586,6 +588,183 @@ public class util {
         }
     }
 
+    public static class GetFriendshipStatusTask extends AsyncTask<String, Void, String> {
+        String response;
+        String myId;
+        String friendId;
+
+        public GetFriendshipStatusTask (String response, String myId, String friendId) {
+            this.response = response;
+            this.myId = myId;
+            this.friendId = friendId;
+        }
+
+        protected String doInBackground(String... urls) {
+
+            try {
+                BufferedReader reader=null;
+
+                String data = URLEncoder.encode("my_id", "UTF-8")
+                        + "=" + URLEncoder.encode(myId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("friend_id", "UTF-8") + "="
+                        + URLEncoder.encode(friendId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("app_name", "UTF-8") + "="
+                        + URLEncoder.encode(app_name, "UTF-8");
+
+                URL url = new URL(friendshipStatusUrlBackEnd);
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write( data );
+                wr.flush();
+
+                // Get the server response
+
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    // Append server response in string
+                    response += line;
+                }
+
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        protected void onPostExecute(String result) {
+            response = result;
+        }
+    }
+
+    public static class GetSentFriendRequestTask extends AsyncTask<String, Void, String> {
+        String response;
+        String myId;
+        String friendId;
+
+        public GetSentFriendRequestTask (String response, String myId, String friendId) {
+            this.response = response;
+            this.myId = myId;
+            this.friendId = friendId;
+        }
+
+        protected String doInBackground(String... urls) {
+
+            try {
+                BufferedReader reader=null;
+
+                String data = URLEncoder.encode("my_id", "UTF-8")
+                        + "=" + URLEncoder.encode(myId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("friend_id", "UTF-8") + "="
+                        + URLEncoder.encode(friendId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("app_name", "UTF-8") + "="
+                        + URLEncoder.encode(app_name, "UTF-8");
+
+                URL url = new URL(sentFriendRequestUrlBackEnd);
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write( data );
+                wr.flush();
+
+                // Get the server response
+
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    // Append server response in string
+                    response += line;
+                }
+
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        protected void onPostExecute(String result) {
+            response = result;
+        }
+    }
+
+    public static class GetRecievedFriendRequestTask extends AsyncTask<String, Void, String> {
+        String response;
+        String myId;
+        String friendId;
+
+        public GetRecievedFriendRequestTask (String response, String myId, String friendId) {
+            this.response = response;
+            this.myId = myId;
+            this.friendId = friendId;
+        }
+
+        protected String doInBackground(String... urls) {
+
+            try {
+                BufferedReader reader=null;
+
+                String data = URLEncoder.encode("my_id", "UTF-8")
+                        + "=" + URLEncoder.encode(myId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("friend_id", "UTF-8") + "="
+                        + URLEncoder.encode(friendId, "UTF-8");
+
+                data += "&" + URLEncoder.encode("app_name", "UTF-8") + "="
+                        + URLEncoder.encode(app_name, "UTF-8");
+
+                URL url = new URL(reciviedFriendRequestUrlBackEnd);
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write( data );
+                wr.flush();
+
+                // Get the server response
+
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    // Append server response in string
+                    response += line;
+                }
+
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        protected void onPostExecute(String result) {
+            response = result;
+        }
+    }
+
 
     public static boolean isNetworkAvailable(ConnectivityManager connectivityManager) {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -600,6 +779,11 @@ public class util {
     public static String getEmailFromSharePreferences (Activity activity) {
         SharedPreferences sharedPref = activity.getSharedPreferences("LOGIN_INFO", Context.MODE_PRIVATE);
         return sharedPref.getString("EMAIL","mmnete@trinity.edu");
+    }
+
+    public static String getUserIdFromSharePreferences (Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences("LOGIN_INFO", Context.MODE_PRIVATE);
+        return sharedPref.getString("USER_ID","mmnete@trinity.edu");
     }
 
     public static ArrayList<WorldSearchUserResult> searchResultToUserList(String response) {

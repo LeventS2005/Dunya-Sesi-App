@@ -11,11 +11,13 @@ import java.util.Map;
  * */
 public class ProfileInfo {
 
+    public int userId;
     public String username;
     public String caption;
     String profileImageUrl;
 
-    public ProfileInfo (String username, String caption, String profileImageUrl) {
+    public ProfileInfo (int userId, String username, String caption, String profileImageUrl) {
+        this.userId = userId;
         this.username = username;
         this.caption = caption;
         this.profileImageUrl = profileImageUrl;
@@ -30,6 +32,7 @@ public class ProfileInfo {
         try {
             Map<String,Object> result =
                     new ObjectMapper().readValue(response.toString(), HashMap.class);
+            this.userId = Integer.valueOf(result.get("id").toString());
             this.username = result.get("username").toString();
             this.caption = result.get("caption").toString();
         } catch (JsonProcessingException e) {

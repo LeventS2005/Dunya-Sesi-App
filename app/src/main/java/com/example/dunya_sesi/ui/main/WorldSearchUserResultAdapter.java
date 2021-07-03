@@ -105,16 +105,15 @@ public class WorldSearchUserResultAdapter extends
                         return;
                     }
                     if(util.getEmailFromSharePreferences(activity).equals(searchResult.email)) {
-
                         Intent i = new Intent(activity, Explore.class);
                         i.putExtra("frgToLoad", 2);
                         activity.startActivity(i);
                         activity.finish();
                     } else {
-                        /*
                         Intent i = new Intent(activity, ViewProfile.class);
                         i.putExtra("profileEmail", searchResult.email);
-                        activity.startActivity(i); */
+                        i.putExtra("profileId", searchResult.userId);
+                        activity.startActivity(i);
                     }
                 }
             });

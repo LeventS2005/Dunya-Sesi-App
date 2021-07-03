@@ -23,11 +23,12 @@ public class WorldSearchUserResultDeserializer extends StdDeserializer<WorldSear
             throws IOException, JsonProcessingException {
         JsonNode node = jp.getCodec().readTree(jp);
 
+        int userId = Integer.valueOf((node.get("id")).asText());
         String email = (node.get("email")).asText();
         String username =  (node.get("username")).asText();
         String caption =  (node.get("caption")).asText();
         String profile_photo_url =  (node.get("profile_photo_url")).asText();
 
-        return new WorldSearchUserResult(email, username, caption, profile_photo_url);
+        return new WorldSearchUserResult(userId, email, username, caption, profile_photo_url);
     }
 }
