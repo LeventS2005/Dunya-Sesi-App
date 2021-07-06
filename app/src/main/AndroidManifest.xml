@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewProfile"></activity>
-        <activity android:name=".ChatPage"></activity>
+        <activity android:name=".FriendRequests"></activity>
+        <activity android:name=".ViewProfile" />
+        <activity android:name=".ChatPage" />
         <activity android:name=".ProfileSettingsActivity" />
         <activity
             android:name=".Explore"

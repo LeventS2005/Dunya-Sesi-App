@@ -1,5 +1,6 @@
 package com.example.dunya_sesi.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,14 +8,18 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dunya_sesi.FriendRequests;
 import com.example.dunya_sesi.R;
+import com.example.dunya_sesi.util;
 
 import java.util.ArrayList;
 
@@ -32,6 +37,7 @@ public class ChatFragment extends Fragment {
     ChatListAdapter chatListAdapter;
     RecyclerView chatListView;
     EditText searchChat;
+    TextView chatListLoadingStatus;
 
 
     public static ChatFragment newInstance(int index) {
@@ -45,7 +51,6 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        insertRandomChats();
     }
 
     @Override
@@ -57,7 +62,9 @@ public class ChatFragment extends Fragment {
 
         chatListView = root.findViewById(R.id.chatList);
 
-        chatListAdapter = new ChatListAdapter(chatItems);
+        chatListAdapter = new ChatListAdapter(chatItems, getActivity());
+
+        chatListLoadingStatus = root.findViewById(R.id.chatListLoadingStatus);
 
         chatListView.setAdapter(chatListAdapter);
         // Set layout manager to position the items
@@ -84,15 +91,33 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        loadChats();
+
         return root;
     }
 
-    private void insertRandomChats () {
-        int i = 0;
+    private void loadChats () {
+        chatListLoadingStatus.setVisibility(View.VISIBLE);
+        chatListLoadingStatus.setText("Loading your chats :)");
+        String response = "";
 
-        while (i < 5) {
-            chatItems.add(new ChatItem(i, "https://i.redd.it/fi48haz3f5i21.jpg", "Sender " + i, "Last Message"));
-            i = i + 1;
-        }
+        new util.GetFriendListTask(response, util.getUserIdFromSharePreferences(getActivity())) {
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                if (util.searchResultToUserList(result).size() == 0) {
+                    chatListLoadingStatus.setText("You have no chats, please add friends :)");
+                } else {
+                    chatItems.clear();
+                    for (WorldSearchUserResult worldSearchUserResult : util.searchResultToUserList(result)) {
+                        chatItems.add(new ChatItem(worldSearchUserResult.userId, "https://i.redd.it/fi48haz3f5i21.jpg", worldSearchUserResult.username, worldSearchUserResult.caption, worldSearchUserResult.email));
+                    }
+                    chatListLoadingStatus.setText("Awesome, enjoy talking :)");
+                }
+                chatListLoadingStatus.setVisibility(View.INVISIBLE);
+                chatListAdapter.notifyDataSetChanged();
+            }
+        }.execute();
     }
 }

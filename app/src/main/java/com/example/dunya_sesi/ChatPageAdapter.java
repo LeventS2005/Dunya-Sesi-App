@@ -1,9 +1,11 @@
 package com.example.dunya_sesi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,14 +24,18 @@ import com.example.dunya_sesi.ui.main.ChatItem;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ChatPageAdapter extends
         RecyclerView.Adapter<ChatPageAdapter.ViewHolder> {
 
     ArrayList<ChatMessage> messages;
+    Activity activity;
 
-    ChatPageAdapter(ArrayList<ChatMessage> newMessages) {
+
+    ChatPageAdapter(ArrayList<ChatMessage> newMessages, Activity activity) {
         this.messages = newMessages;
+        this.activity = activity;
     }
 
     // Provide a direct reference to each of the views within a data item
@@ -37,7 +43,10 @@ public class ChatPageAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
+        public TextView messageTimeStamp;
         public TextView messageId;
+        public TextView senderId;
+        public TextView recieverId;
         public TextView messageText;
         public TextView messageSender;
 
@@ -54,6 +63,9 @@ public class ChatPageAdapter extends
             messageSender = (TextView) itemView.findViewById(R.id.messageSender);
             messageText = (TextView) itemView.findViewById(R.id.messageText);
             messageId = (TextView) itemView.findViewById(R.id.messageId);
+            recieverId = itemView.findViewById(R.id.recieverId);
+            senderId = itemView.findViewById(R.id.senderId);
+            messageTimeStamp = itemView.findViewById(R.id.messageTimeStamp);
         }
     }
 
@@ -61,7 +73,7 @@ public class ChatPageAdapter extends
     public int getItemViewType(int position) {
         // Just as an example, return 0 or 2 depending on position
         // Note that unlike in ListView adapters, types don't have to be contiguous
-        return this.messages.get(position).sender.equals("me") ? 0 : 1;
+        return this.messages.get(position).sender_id.equals(util.getUserIdFromSharePreferences(activity)) ? 0 : 1;
     }
 
     @NonNull
@@ -99,10 +111,31 @@ public class ChatPageAdapter extends
                     deleteMessageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            if(!util.isNetworkAvailable((ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                                Toast.makeText(activity.getApplicationContext(),"Could delete message. Please connect to the internet!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             TextView messaageIdView = (TextView) sentMessageView.findViewById(R.id.messageId);
+                            TextView senderIdView = (TextView) sentMessageView.findViewById(R.id.senderId);
+                            TextView recieverIdView = (TextView) sentMessageView.findViewById(R.id.recieverId);
+                            TextView messaageTimeStampView = (TextView) sentMessageView.findViewById(R.id.messageTimeStamp);
                             int messagePosition = Integer.valueOf(messaageIdView.getText().toString());
-                            messages.remove(messagePosition);
-                            notifyDataSetChanged();
+
+
+                            String response = "";
+
+                            new util.DeleteMessageTask(response, util.getUserIdFromSharePreferences(activity), recieverIdView.getText().toString(), messaageTimeStampView.getText().toString()) {
+                                @Override
+                                protected void onPostExecute(String result) {
+                                    super.onPostExecute(result);
+                                    if(result.equals("DELETED")) {
+                                        messages.remove(messagePosition);
+                                        notifyDataSetChanged();
+                                    }
+                                }
+                            }.execute();
 
                         }
                     });
@@ -121,9 +154,11 @@ public class ChatPageAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ChatPageAdapter.ViewHolder holder, int position) {
       holder.messageText.setText(this.messages.get(position).message);
-      holder.messageSender.setText(this.messages.get(position).sender);
+      holder.messageSender.setText(this.messages.get(position).sender_id.equals(util.getUserIdFromSharePreferences(activity)) ? "Me" : "My Friend");
       holder.messageId.setText(position + "");
-
+      holder.messageTimeStamp.setText(this.messages.get(position).time_contact);
+      holder.senderId.setText(this.messages.get(position).sender_id);
+      holder.recieverId.setText(this.messages.get(position).reciever_id);
     }
 
     @Override

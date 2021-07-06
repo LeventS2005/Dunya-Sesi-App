@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="275dp"
     android:orientation="vertical"
     android:layout_margin="20dp"
     >
@@ -26,12 +26,35 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
     <Button
         android:id="@+id/openChatButton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:textColor="#ffff"
         android:text="@string/open_chat_button"/>
+
+    <Button
+        android:id="@+id/viewProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:textColor="#ffff"
+        android:text="view profile"/>
+
+    <Button
+        android:id="@+id/clearChatButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="#e4000f"
+        android:textColor="#ffff"
+        android:text="Clear Chat"/>
 
 
 </LinearLayout>

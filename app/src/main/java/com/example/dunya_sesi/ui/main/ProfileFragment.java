@@ -25,9 +25,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.dunya_sesi.Explore;
+import com.example.dunya_sesi.FriendRequests;
 import com.example.dunya_sesi.MainActivity;
 import com.example.dunya_sesi.ProfileSettingsActivity;
 import com.example.dunya_sesi.R;
+import com.example.dunya_sesi.ViewProfile;
 import com.example.dunya_sesi.util;
 
 import java.io.BufferedInputStream;
@@ -54,6 +56,15 @@ public class ProfileFragment extends Fragment {
     String oldUsername = "";
     String oldCaption = "";
 
+    ImageView profileImage;
+    EditText usernameEditText;
+    TextView usernameErrorTextView;
+    Button updateUsernameButton;
+    EditText captionEditText;
+    TextView captionErrorTextView;
+    Button updateCaptionButton;
+    Button friendRequestsButton;
+
     public static ProfileFragment newInstance(int index) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle bundle = new Bundle();
@@ -72,13 +83,15 @@ public class ProfileFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final ImageView profileImage = root.findViewById(R.id.userProfileImage);
-        final EditText usernameEditText = root.findViewById(R.id.userName);
-        final TextView usernameErrorTextView = root.findViewById(R.id.userNameUpdateError);
-        final Button updateUsernameButton = root.findViewById(R.id.updateUsernameButton);
-        final EditText captionEditText = root.findViewById(R.id.userCaption);
-        final TextView captionErrorTextView = root.findViewById(R.id.userCaptionUpdateError);
-        final Button updateCaptionButton = root.findViewById(R.id.updateCaptionButton);
+        profileImage = root.findViewById(R.id.userProfileImage);
+        usernameEditText = root.findViewById(R.id.userName);
+        usernameErrorTextView = root.findViewById(R.id.userNameUpdateError);
+        updateUsernameButton = root.findViewById(R.id.updateUsernameButton);
+        captionEditText = root.findViewById(R.id.userCaption);
+        captionErrorTextView = root.findViewById(R.id.userCaptionUpdateError);
+        updateCaptionButton = root.findViewById(R.id.updateCaptionButton);
+        friendRequestsButton = root.findViewById(R.id.friendRequestsButton);
+
         logoutButton = root.findViewById(R.id.logoutButton);
         mySharedPref = getContext().getSharedPreferences(mySharedPrefFileName,  Context.MODE_PRIVATE);
 
@@ -89,7 +102,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        loadUserProfile(usernameEditText, captionEditText, profileImage, util.getEmailFromSharePreferences(getActivity()));
+        loadUserProfile(usernameEditText, captionEditText, profileImage, util.getEmailFromSharePreferences(getActivity()), util.getUserIdFromSharePreferences(getActivity()), friendRequestsButton);
 
         updateUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,14 +128,43 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String requestsResponse = "";
+
+        new util.GetFriendRequestsTask(requestsResponse, util.getUserIdFromSharePreferences(getActivity())) {
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                if(result.length() == 0) {
+                    friendRequestsButton.setEnabled(false);
+                    friendRequestsButton.setText("Friend Requests (0)");
+                } else {
+                    friendRequestsButton.setText("Friend Requests ("+util.searchResultToUserList(result).size()+")");
+                    friendRequestsButton.setEnabled(true);
+                    friendRequestsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(getActivity(), FriendRequests.class);
+                            getActivity().startActivity(i);
+                        }
+                    });
+                }
+            }
+        }.execute();
+    }
+
     private void navigateToSettingsActivity() {
         // TODO(homework) using intent to navigate to settings activity
         Intent i = new Intent(this.getActivity(), ProfileSettingsActivity.class);
         startActivity(i);
     }
 
-    private void loadUserProfile(final EditText username, final EditText caption, ImageView profileImage, String email) {
-        String response = "";
+    private void loadUserProfile(final EditText username, final EditText caption, ImageView profileImage, String email, final String myId, final Button friendRequestsButton) {
+        final String response = "";
+        friendRequestsButton.setEnabled(false);
 
         if (!util.isNetworkAvailable((ConnectivityManager)
                 getActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
@@ -143,6 +185,29 @@ public class ProfileFragment extends Fragment {
                 caption.setText(profileInfo.caption);
                 oldUsername = profileInfo.username;
                 oldCaption = profileInfo.caption;
+            }
+        }.execute();
+
+        String requestsResponse = "";
+
+        new util.GetFriendRequestsTask(requestsResponse, myId) {
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                if(result.length() == 0) {
+                   friendRequestsButton.setEnabled(false);
+                   friendRequestsButton.setText("Friend Requests (0)");
+                } else {
+                    friendRequestsButton.setText("Friend Requests ("+util.searchResultToUserList(result).size()+")");
+                    friendRequestsButton.setEnabled(true);
+                    friendRequestsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(getActivity(), FriendRequests.class);
+                            getActivity().startActivity(i);
+                        }
+                    });
+                }
             }
         }.execute();
 

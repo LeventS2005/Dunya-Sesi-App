@@ -6,11 +6,13 @@ public class ChatItem {
     String senderProfileImageUrl;
     String senderName;
     String lastMessage;
+    String email;
 
-    ChatItem (int newId, String senderProfileImageUrl, String senderName, String newlastMessage) {
+    ChatItem (int newId, String senderProfileImageUrl, String senderName, String newlastMessage, String email) {
         this.id = newId;
         this.senderName = senderName;
         this.lastMessage = newlastMessage;
         this.senderProfileImageUrl = senderProfileImageUrl;
+        this.email = email;
     }
 }

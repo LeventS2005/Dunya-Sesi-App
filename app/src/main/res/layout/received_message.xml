@@ -10,6 +10,24 @@
         tools:ignore="Suspicious0dp"
         android:layout_width="0dp" />
 
+    <TextView
+        android:id="@+id/senderId"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/recieverId"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/messageTimeStamp"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,9 +1,11 @@
 package com.example.dunya_sesi.ui.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dunya_sesi.ChatPage;
+import com.example.dunya_sesi.Explore;
 import com.example.dunya_sesi.R;
+import com.example.dunya_sesi.ViewProfile;
+import com.example.dunya_sesi.util;
 
 import java.io.InputStream;
 import java.security.AccessController;
@@ -27,8 +33,10 @@ public class ChatListAdapter extends
         RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
 
     ArrayList<ChatItem> chats;
+    Activity activity;
 
-    ChatListAdapter(ArrayList<ChatItem> newChats) {
+    ChatListAdapter(ArrayList<ChatItem> newChats, Activity activity) {
+        this.activity = activity;
         this.chats = newChats;
     }
 
@@ -41,6 +49,8 @@ public class ChatListAdapter extends
         public TextView senderName;
         public TextView lastMessage;
         public Button openChatButton;
+        public Button viewProfileButton;
+        public Button clearChatButton;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -53,6 +63,8 @@ public class ChatListAdapter extends
             senderName = (TextView) itemView.findViewById(R.id.senderName);
             lastMessage = (TextView) itemView.findViewById(R.id.lastMessage);
             openChatButton = (Button) itemView.findViewById(R.id.openChatButton);
+            viewProfileButton = itemView.findViewById(R.id.viewProfileButton);
+            clearChatButton = itemView.findViewById(R.id.clearChatButton);
         }
     }
 
@@ -84,7 +96,33 @@ public class ChatListAdapter extends
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ChatPage.class);
                 i.putExtra("SENDER_NAME", chatItem.senderName);
+                i.putExtra("SENDER_ID", String.valueOf(chatItem.id));
                 view.getContext().startActivity(i);
+            }
+        });
+
+        holder.viewProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!util.isNetworkAvailable((ConnectivityManager)
+                        activity.getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                    Toast toast = Toast.makeText(activity, "Please connect to the internet.", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+
+                    Intent i = new Intent(activity, ViewProfile.class);
+                    i.putExtra("profileEmail", chatItem.email);
+                    i.putExtra("profileId", chatItem.id);
+                    activity.startActivity(i);
+
+            }
+        });
+
+        holder.clearChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearChat(holder.clearChatButton, holder.lastMessage, util.getUserIdFromSharePreferences(activity), String.valueOf(chatItem.id));
             }
         });
     }
@@ -117,5 +155,21 @@ public class ChatListAdapter extends
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    private void clearChat (Button clearChatButton, TextView chatClearUpdate, String myId, String friendId) {
+        clearChatButton.setEnabled(false);
+        String response = "";
+
+        new util.ClearChatTask(response, myId, friendId) {
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                if(result.equals("DELETED")){
+                    chatClearUpdate.setText("Chat Cleared :(");
+                }
+                clearChatButton.setEnabled(true);
+            }
+        }.execute();
     }
 }

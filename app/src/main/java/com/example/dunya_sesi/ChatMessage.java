@@ -1,13 +1,20 @@
 package com.example.dunya_sesi;
 
-// One message, each message that is either sent or recieved
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(using = ChatMessageDeserializer.class)
 public class ChatMessage {
 
+    String sender_id;
+    String reciever_id;
     String message;
-    String sender;
+    String time_contact;
 
-    public ChatMessage (String newMessage, String sender) {
-        this.message = newMessage;
-        this.sender = sender;
+    public ChatMessage (String sender_id, String reciever_id, String message, String time_contact) {
+        this.sender_id = sender_id;
+        this.reciever_id = reciever_id;
+        this.message = message;
+        this.time_contact = time_contact;
     }
 }

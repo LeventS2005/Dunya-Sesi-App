@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = WorldSearchUserResultDeserializer.class)
 public class WorldSearchUserResult {
 
-    int userId;
-    String email;
-    String username;
-    String caption;
-    String profile_photo_url;
+    public int userId;
+    public String email;
+    public String username;
+    public String caption;
+    public String profile_photo_url;
 
     public WorldSearchUserResult(int userId, String email, String newUsername, String newCaption, String profile_photo_url) {
         this.userId = userId;

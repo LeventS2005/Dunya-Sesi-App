@@ -5,11 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-<TextView
+    <TextView
     android:id="@+id/messageId"
     android:layout_height="0dp"
     tools:ignore="Suspicious0dp"
     android:layout_width="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/senderId"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/recieverId"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/messageTimeStamp"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_width="0dp"></TextView>
 
 
     <RelativeLayout

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:padding="5dp"
+    android:background="@drawable/my_world_search_result_background">
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="2dp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:text="Example_User_Name"
+        android:textColor="#ffff"
+        app:autoSizeTextType="uniform"/>
+
+    <Button
+        android:id="@+id/requestViewProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:text="View Profile"
+        android:background="@color/cardview_light_background"/>
+
+    <Button
+        android:id="@+id/acceptRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:text="Accept Request"
+        android:background="@color/cardview_light_background"/>
+
+    <Button
+        android:id="@+id/rejectRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:text="Reject Request"
+        android:background="@color/cardview_light_background"/>
+
+</LinearLayout>
